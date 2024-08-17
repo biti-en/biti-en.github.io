@@ -11,7 +11,7 @@ related_posts: true
 
 {% include video.liquid path="assets/video/livellm_qwen2_1.5b.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=true %}
 
-<span style="font-size:8vw"> LLM </span>  | Large Language-Model, a very familiar topic nowadays that throws community into frenzy due to its potential in smart assistant, AGI etc. However, despite the hype, the harware requirements are also HUGE, to say the least. Simply, we could say goodbye to below 500 USD GPU if we want to run higher LLM specs (> 13B LLM model). 
+<span style="font-size:8vw"> LLM </span> | Large Language-Model, a very familiar topic nowadays that throws community into frenzy due to its potential in smart assistant, AGI etc. However, despite the hype, the harware requirements are also HUGE, to say the least. Simply, we could say goodbye to below 500 USD GPU if we want to run higher LLM specs (> 13B LLM model).
 
 Luckily, smaller LLM models are also available albeits on the lesser accuracy sides. In this post, I am trying to port a recent small LLM from Huggingface that achieves SOTA accuracy, called [Qwen2_1.5B](https://huggingface.co/Qwen/Qwen2-1.5B-Instruct), to the cheapest RK3588 device to test whether below 100 USD devices are still capable ebough to run smaller LLMs locally, which it is!
 
@@ -23,21 +23,24 @@ So, in this post, I would like to share the happy LLM experiment on the edge dev
     Orange Pi 5 Comparison with Rock 5B, Raspberry Pi 4, and Raspberry Pi 5.
 </div>
 
-In this test, I am using Orange Pi 5 4GB, a 75 USD (2400 NTD) edge device that has 6 TOPS with RK3588 Rockchip [that blows other edge devices](https://youtu.be/nBtOEmUqASQ?t=595) such as my old Jetson Nano 2G (50 USD) and  4G (100 USD), Raspberry Pi 4, and Raspberry Pi 5 with its chipset. I have tested this device last year, albeit with conversion output issues on other models other than their predefined working models that finally gets much better with the recent version. 
+In this test, I am using Orange Pi 5 4GB, a 75 USD (2400 NTD) edge device that has 6 TOPS with RK3588 Rockchip [that blows other edge devices](https://youtu.be/nBtOEmUqASQ?t=595) such as my old Jetson Nano 2G (50 USD) and 4G (100 USD), Raspberry Pi 4, and Raspberry Pi 5 with its chipset. I have tested this device last year, albeit with conversion output issues on other models other than their predefined working models that finally gets much better with the recent version.
 
 Back to the LLM topic, to run Qwen2_1.5B on Orange Pi 5, there are 2 steps in different devices which need to be done:
 
-*  Step 1. LLM Model Convertion (AMD64 Device)
-  1. Install Python3.8.
-  2. Download  the RKLLM Repository
-  3. Install RKLLM and Necessary Packages.
-  4. Download desired LLM from Huggingface.
-  5. Export Pytorch LLM to RKLLM model.
-* Step 2. Edge Inference (RK3588 Orange Pi 5)
+- Step 1. LLM Model Convertion (AMD64 Device)
+
+1. Install Python3.8.
+2. Download the RKLLM Repository
+3. Install RKLLM and Necessary Packages.
+4. Download desired LLM from Huggingface.
+5. Export Pytorch LLM to RKLLM model.
+
+- Step 2. Edge Inference (RK3588 Orange Pi 5)
   1. Build RKLLM-Runtime packages and Resources.
   2. Execute the LLM model.
 
 # Step 1. LLM Model Convertion (AMD64 Device)
+
 ---
 
 ## Install Python3.8.
@@ -71,11 +74,11 @@ To download the LLM, you can simplify clone it by the following way:
 ```
 git clone https://huggingface.co/Qwen/Qwen2-1.5B-Instruct
 ```
+
 > ##### REMINDER
 >
 > After cloning, you still need to install required packages of Huggingface
-{: .block-warning }
-
+> {: .block-warning }
 
 ## Export Pytorch LLM to RKLLM model
 
@@ -116,15 +119,15 @@ if ret != 0:
 And then run the code
 
 ```bash
-# Format -> python38 [YOUR_SCRIPT_NAME].py 
+# Format -> python38 [YOUR_SCRIPT_NAME].py
 python38 test.py
 ```
 
-
-> After getting the RKLLM model, 
+> After getting the RKLLM model,
 > don't forget to copy it to the edge device.
 
 # Step 2. Edge Inference (RK3588 Orange Pi 5)
+
 ---
 
 ## Build RKLLM-Runtime packages and Resources
@@ -140,6 +143,7 @@ sudo bash install.sh
 ## Execute the LLM model
 
 Final step, let's start our LLM, and you should see similar prompt as in the beginning video, have a nice chat!
+
 ```
 # format -> rkllm [YOUR_LLM_NAME].rkllm
 rkllm qwen.rkllm
@@ -147,6 +151,6 @@ rkllm qwen.rkllm
 
 > ##### Congratulations!
 >
-> We have successfully run the LLM 
+> We have successfully run the LLM
 > with quite a reasonable speed.
-{: .block-tip }
+> {: .block-tip }
