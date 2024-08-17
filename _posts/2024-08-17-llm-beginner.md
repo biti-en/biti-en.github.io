@@ -16,6 +16,7 @@ Have you ever considered about what is it that needs to be trained to run LLM? W
 Token, is one of the key in the NLP area, where it will dictate the max output that LLMs could produce in one inquiry. The way they trained on, which feeds on inputs on some question/inquiries, gives N-output, then compared with Tokenized ground truth, gives them kind-of non-constrained way to answer inputs, which enable them to focus on giving you desired output based on things that it's trained on. **This focus** often produces hallucination, or basically garbage output that looks as if it is a fact, which is something that is an ongoing topic to solve.
 
 Back to the basic, after briefly knowing LLM, then how do we finetune it? Well, it can be done by doing the following:
+
 1. Import packages and initialize model.
 2. Define the tunable layer/LORA.
 3. Define your dataset.
@@ -23,9 +24,10 @@ Back to the basic, after briefly knowing LLM, then how do we finetune it? Well, 
 5. Start training and done!
 
 ---
+
 ## 1. Import Packages and Intiailize Model
 
-To import packages and initialize the model, it can be done easily by calling it from Huggingface's transformer function ```FastLanguageModel.from_pretrained``` as the following:
+To import packages and initialize the model, it can be done easily by calling it from Huggingface's transformer function `FastLanguageModel.from_pretrained` as the following:
 
 ```python
 # step 1. Import packages
@@ -50,12 +52,13 @@ model, tokenizer = FastLanguageModel.from_pretrained(
 )
 ```
 
-As in the above code's comments, we only need to import packages for every package usage that we want to use, set parameters so that we can do subsequent task without re-set the value repeatedly, and load model resources to call the model into the jupyter/python code. 
+As in the above code's comments, we only need to import packages for every package usage that we want to use, set parameters so that we can do subsequent task without re-set the value repeatedly, and load model resources to call the model into the jupyter/python code.
 
 ---
+
 ## 2. Define the Tunable Layer/LORA
 
-After that, we need to define our LORA config, since the base LLM model won't be trained due to the data type constraint (int4 can't be retrained). Using LORA, we can finetune any LLMs on the internet to a specific usecase based on whatever dataset we've trained on. If you are a neural network/computer vision enginee, you can imagine LORA as an additional linear layer + sigmoid on top of a pretrained resnet50 model. To define LORA configuration, we need to call ```FastLanguageModel.get_peft_model``` as follows:
+After that, we need to define our LORA config, since the base LLM model won't be trained due to the data type constraint (int4 can't be retrained). Using LORA, we can finetune any LLMs on the internet to a specific usecase based on whatever dataset we've trained on. If you are a neural network/computer vision enginee, you can imagine LORA as an additional linear layer + sigmoid on top of a pretrained resnet50 model. To define LORA configuration, we need to call `FastLanguageModel.get_peft_model` as follows:
 
 ```python
 # Do model patching and add fast LoRA weights
@@ -105,7 +108,7 @@ Bot: I'm sorry, I'm not able to help with your tax form. It is best to consult a
 
 ## 4. Set the Trainer Model
 
-Next, we need to set our trainer, this is done by calling ```SFTTrainer```, where we will define batch size, warmup steps, max steps, learning rate etc.
+Next, we need to set our trainer, this is done by calling `SFTTrainer`, where we will define batch size, warmup steps, max steps, learning rate etc.
 
 ```
 trainer = SFTTrainer(
@@ -134,7 +137,7 @@ trainer = SFTTrainer(
 
 ## 5. Start Training and Done!
 
-Now for the final step, we just simply need to call the .train(), and observe the loss decreasing, and in the end save the trained model, and Voila, that's it! 
+Now for the final step, we just simply need to call the .train(), and observe the loss decreasing, and in the end save the trained model, and Voila, that's it!
 
 ```
 trainer.train()
@@ -144,14 +147,16 @@ trainer.save_model("path/to/model")
 > Hope you enjoy the post shared in here and see you in the next post~
 
 ---
+
 ## Complete Jupyter Notebook Code
 
 {::nomarkdown}
 {% assign jupyter_path = 'assets/jupyter/FineTuneLLM.ipynb' | relative_url %}
 {% capture notebook_exists %}{% file_exists assets/jupyter/FineTuneLLM.ipynb %}{% endcapture %}
 {% if notebook_exists == 'true' %}
-  {% jupyter_notebook jupyter_path %}
+{% jupyter_notebook jupyter_path %}
 {% else %}
+
   <p>Sorry, the notebook you are looking for does not exist.</p>
 {% endif %}
 {:/nomarkdown}
