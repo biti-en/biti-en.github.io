@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: biti-en.github.io/sitemap.xml
