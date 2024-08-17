@@ -12,7 +12,7 @@ profile:
     <p>Expertise: Machine Learning, Computer vision, Continual learning, Edge inference, LLM, Generalized Instance Segmentation, Unsupervised learning for defect detection.</p>
 
 news: false # includes a list of news items
-selected_papers: true # includes a list of papers marked as "selected={true}"
+selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
