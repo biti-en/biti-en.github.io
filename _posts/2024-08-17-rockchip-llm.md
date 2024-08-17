@@ -4,7 +4,7 @@ title: LLM (Large Language-Models) on Rockchip
 date: 2024-08-17 13:00:00+0800
 description: a journey of running LLM on Rockchip Device (Orange pi 5 - RK3588)
 tags: llm rockchip
-categories: Rockchip
+categories: llm
 giscus_comments: false
 related_posts: true
 ---
@@ -154,3 +154,5 @@ rkllm qwen.rkllm
 > We have successfully run the LLM
 > with quite a reasonable speed.
 > {: .block-tip }
+
+> Hope you enjoy the post shared in here, and see you in the next post~
