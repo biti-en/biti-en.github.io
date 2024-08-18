@@ -7,6 +7,7 @@ tags: llm finetune
 categories: llm
 giscus_comments: false
 related_posts: true
+featured: true
 ---
 
 Have you ever considered about what is it that needs to be trained to run LLM? What is the dataset format to do the finetuning? Or maybe, what in the world is this LLM anyway? Well, in this post, we're going to learn all of that.
