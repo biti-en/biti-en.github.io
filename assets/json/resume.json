@@ -212,16 +212,9 @@
   ],
   "interests": [
     {
-      "name": "Physics",
+      "name": "Machine Learning",
       "icon": "fa-solid fa-tag",
-      "keywords": [
-        "Quantum Mechanics",
-        "Quantum Computing",
-        "Quantum Information",
-        "Quantum Cryptography",
-        "Quantum Communication",
-        "Quantum Teleportation"
-      ]
+      "keywords": ["Machine Learning", "Machine Learning on edge devices", "Large Language Model", "Foundation machine learning on edge devices"]
     }
   ],
   "references": [
@@ -238,12 +231,25 @@
   ],
   "projects": [
     {
-      "name": "Quantum Computing",
-      "summary": "Quantum computing is the use of quantum-mechanical phenomena such as superposition and entanglement to perform computation. Computers that perform quantum computations are known as quantum computers.",
-      "highlights": ["Quantum Teleportation", "Quantum Cryptography"],
-      "startDate": "2018-01-01",
-      "endDate": "2018-01-01",
-      "url": "https://example.com"
+      "name": "Deep learning for time series",
+      "summary": "Predict whether the person will click/not the ads.",
+      "highlights": ["ads click time series"],
+      "startDate": "2017",
+      "endDate": "2017"
+    },
+    {
+      "name": "Car Plate Number and Plate Color Recognitions",
+      "summary": "Make plate number recognition and also the color of the plate (with condition that the picture left is the plate).",
+      "highlights": ["Car Plate recognition"],
+      "startDate": "2015-12",
+      "endDate": "2015-12"
+    },
+    {
+      "name": "Alcoholic Classification",
+      "summary": "This project is used to classify the person alcoholic state to determine whether that someone is in alcoholic state or control/normal state.",
+      "highlights": ["Classification"],
+      "startDate": "2015-10",
+      "endDate": "2015-10"
     }
   ]
 }
