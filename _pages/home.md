@@ -20,4 +20,11 @@ social: true # includes social icons at the bottom of the page
 
 For introduction, I am a Project Manager/Senior Computer Vision Engineer with 6+ years working as aprofessional in the Deep learning area: object detection, classification, segmentation, anomaly detection, inference optimization, unknown picking and detection, and LLM integration.
 
-My recent R&D is about 6D pose detection + tracking at 50-100fps/object on PC or 20-30 FPS on Jetson AGX Orin.
+---
+
+My recent Research include:
+
+1. 6D Pose Estimation and Tracking at 50-100fps/object on PC; 20-30 FPS on Jetson AGX Orin.
+2. Optical Character Recognition with 20 FPS on PC / 5-10 FPS on client-server scenario.
+3. Anomaly Detection at up to 100 FPS on PC.
+4. Foundational Object Detection / Faster Segment Anything (2 FPS vs 0 FPS original; 20 FPS with progressive predictions).
