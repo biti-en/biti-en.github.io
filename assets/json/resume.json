@@ -48,7 +48,7 @@
       "startDate": "2016-09",
       "endDate": "2018-07",
       "score": "4.15 / 4.3",
-      "finalThesis": "Analysis of Layer Efficiency"
+      "finalThesis": "Analysis of Deep Learning's Layer Efficiency"
     },
     {
       "institution": "Institut Teknologi Sepuluh November (ITS)",
@@ -59,7 +59,7 @@
       "startDate": "2012-08",
       "endDate": "2016-01",
       "score": "3.57 / 4",
-      "finalThesis": ["EEG Classification", "Real-time Driving fatigue Classification with EEG"]
+      "Summary": ["EEG Classification, and Real-time Driving fatigue Classification with EEG"]
     }
   ],
   "awards": [
@@ -221,12 +221,12 @@
     {
       "name": "Professor Shun-Feng Su [Master]",
       "icon": "fa-solid fa-laptop",
-      "reference": "https://www.ntust.edu.tw/p/404-1000-109540.php?Lang=en"
+      "url": "https://www.ntust.edu.tw/p/404-1000-109540.php?Lang=en"
     },
     {
       "name": "Professor Riyanarto Sarno [Bachelor]",
       "icon": "fa-solid fa-thumbtack",
-      "reference": "https://www.its.ac.id/informatika/id/profil-riyanarto-sarno/"
+      "url": "https://www.its.ac.id/informatika/id/profil-riyanarto-sarno/"
     }
   ],
   "projects": [
