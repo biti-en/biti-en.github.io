@@ -5,6 +5,7 @@ date: 2024-08-24 11:00:00+0800
 description: test big LLM on ensembled budget PC.
 tags: llm
 categories: llm
+thumbnail: assets/img/082424_budget_vs_llama.png
 giscus_comments: false
 related_posts: true
 featured: true

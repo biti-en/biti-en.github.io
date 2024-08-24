@@ -7,13 +7,7 @@
     "phone": "",
     "url": "https://github.com/briliantnugraha",
     "summary": "An Indonesian who likes to democratize Machine Learning by experimenting it on limited/constrained devices.",
-    "location": {
-      "address": "NA",
-      "postalCode": "100",
-      "city": "Taipei",
-      "countryCode": "Taiwan",
-      "region": "Taiwan"
-    },
+    "location": "Taipei, Taiwan",
     "socials": "https://www.facebook.com/brilian.t.nugraha"
   },
   "work": [
@@ -23,7 +17,7 @@
       "url": "https://www.solomon-3d.com",
       "startDate": "2018-11-05",
       "endDate": "Current",
-      "summary": "Solo AI full-stack developer of [2021-now] Anomaly Detection, [2021-now] OCR, and [2020-2022] Unknown Object Detection Tools; Edge Inference on Jetson, Hailo, and Openvino [2019 - Now], [early 2024] LLM RAG tester; [2023-now] Feature Matching main developer in the team; [2024-04 to 2024-08] develops 6D pose tracking with FoundationPose as a team leader.",
+      "summary": "Solo AI full-stack developer of [2020 - now] Anomaly Detection, [2021 - now] OCR, and [2019 - 2022] Unknown Object Detection Tools; Edge Inference on Jetson, Hailo, and Openvino [2019 - Now], [01/2024 - now] LLM RAG tester; [2023 - now] Feature Matching main developer in the team; [2024/04 - now] develops 6D pose tracking with FoundationPose as a team leader.",
       "highlights": ["Anomaly Detection, OCR, Object Detection, Foundation Tracking, Edge Inference"]
     }
   ],
@@ -77,63 +71,63 @@
   "certificates": [
     {
       "name": "Convolutional Neural Network",
-      "date": "2018-01",
+      "date": "2018/01",
       "issuer": "Coursera",
       "url": "https://www.coursera.org/account/accomplishments/verify/ZQNALPLNBCLA",
-      "icon": "fa-solid fa-location-dot"
+      "icon": "fa-solid fa-clipboard-check"
     },
     {
       "name": "Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization",
-      "date": "2017-11",
+      "date": "2017/11",
       "issuer": "Coursera",
       "url": "https://www.coursera.org/account/accomplishments/verify/77Q457W3RDKR",
-      "icon": "fa-solid fa-tag"
+      "icon": "fa-solid fa-clipboard-check"
     },
     {
       "name": "Structuring Machine Learning Projects",
-      "date": "2017-11",
+      "date": "2017/11",
       "issuer": "Coursera",
       "url": "https://www.coursera.org/account/accomplishments/verify/HFRNPNJP3C6X",
-      "icon": "fa-solid fa-envelope"
+      "icon": "fa-solid fa-clipboard-check"
     },
     {
       "name": "Neural Networks and Deep Learning",
-      "date": "2018-10",
+      "date": "2018/10",
       "issuer": "Coursera",
       "url": "https://www.coursera.org/account/accomplishments/verify/HQ23R77L9UY7",
-      "icon": "fa-solid fa-hashtag"
+      "icon": "fa-solid fa-clipboard-check"
     },
     {
       "name": "Data Science: Deep Learning in Python",
-      "date": "2017-01",
+      "date": "2017/01",
       "issuer": "Udemy",
       "url": "https://www.udemy.com/certificate/UC-48IG3KAN/",
-      "icon": "fa-solid fa-calendar"
+      "icon": "fa-solid fa-clipboard-check"
     },
     {
       "name": "Deep Learning 101",
-      "date": "2017-01",
+      "date": "2017/01",
       "issuer": "Big Data University",
       "url": "https://courses.bigdatauniversity.com/certificates/487ef63ea0e8464586839994d2ce07b7",
       "icon": "fa-solid fa-clipboard-check"
     },
     {
       "name": "Data Analysis",
-      "date": "2016-06",
+      "date": "2016/06",
       "issuer": "Brainmeasures",
       "url": "http://www.brainmeasures.com/transcript.aspx?transcriptid=46998",
       "icon": "fa-solid fa-clipboard-check"
     },
     {
       "name": "Android Developer From Scratch",
-      "date": "2016-05",
+      "date": "2016/05",
       "issuer": "Udemy",
       "url": "http://ude.my/UC-HX8V6TSZ",
       "icon": "fa-solid fa-clipboard-check"
     },
     {
       "name": "Python 3 Tutorial Course",
-      "date": "2016-05",
+      "date": "2016/05",
       "issuer": "SoloLearn",
       "url": "https://drive.google.com/open?id=0B5spKdz23MrhMmR0Ykc0TVZoNVk",
       "icon": "fa-solid fa-clipboard-check"
