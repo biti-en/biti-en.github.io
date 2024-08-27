@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Testing LLAMA3.1 70B on a Budget PC Build
-date: 2024-08-24 11:00:00+0800
-description: test big LLM on ensembled budget PC.
-tags: llm
-categories: llm
-thumbnail: assets/img/082424_budget_vs_llama.png
+title: Segment Anything Explained
+date: 2024-08-27 19:00:00+0800
+description: A user-friendly explanation on Segment Anything (SAM).
+tags: detection
+categories: detection
+thumbnail: assets/img/20240827_sam_pencil.png
 giscus_comments: false
 related_posts: true
 featured: true
@@ -17,93 +17,160 @@ featured: true
 
 ---
 
-{% include figure.liquid path="assets/img/082424_budget_vs_llama.png" class="img-fluid rounded z-depth-2" zoomable=false%}
+{% include figure.liquid path="assets/img/20240827_sam_pencil.png" class="img-fluid rounded z-depth-2" zoomable=false %}
 
-Hi everyone, today, I want to answer my own curiosity on **whether budget PC build could run big Large Language Model (LLM)**? For a context, what I want to run is LLAMA3.1 70B, a big LLM (for me) which theoretically requires ~280 GB of GPU memory on a PC with Full-Precision (FP32). But wait a second, how do we build a budget PC with those humongous GPU requirement? Well, not really, at least for now, but we have the next best thing, which is LLM quantization. Quantization is one of the most common deployment choices for machine learning people due to its practicality and hardware availability. For example, running FP32 to FP16, INT8, INT4, and INT2 from the same LLAMA3.1 model could run with only ~140, ~70,~35, or even lower GBs of GPU memory with lower bit-per-weight (BPW) ratios. However, the lower the quantization used, the lower the accuracy compared to the original. But for today, to maximize hardware availability and better results, we will try to run [LLAMA3.1 70B Q2_K/INT2 from here](https://huggingface.co/bartowski/Meta-Llama-3.1-70B-Instruct-GGUF).
+It has been 1.5 years since the release of Segment Anything (SAM), where it steals the focus of public with its vast potentials on many fields: medics, factory, analysis, business, labeling, you name it, they (should) have it by then. However, the thing raises a very basic question, "what makes SAM so powerful"? Well, in this post, we're going to find out just that, and so that we could come to undertand the beauty of SAM, potentials of it, and maybe to extend this method on your specific use-cases. Everything that is discussed in here is based on the [basic1](https://towardsdatascience.com/all-you-need-to-know-about-attention-and-transformers-in-depth-understanding-part-1-552f0b41d021) and [basic2](https://www.v7labs.com/blog/vision-transformer-guide) of Transformer and [the original SAM paper](https://arxiv.org/pdf/2304.02643).
 
-## Setup
-
----
-
-To test the image, we are going to do the following:
-
-1. Setup Our Budget PC Build.
-2. Download Our Testing [LLAMA3.1 70B Q2_K/INT2 Model](https://huggingface.co/bartowski/Meta-Llama-3.1-70B-Instruct-GGUF).
-3. Download Ollama Package.
-4. Prepare Ollama Model.
-5. Run the 70B LLM!
-
-### 1. Setup Budget PC Build
+## What makes Segment Anything So Powerful?
 
 ---
 
-For your information, I use my own compact PC with M-ATX build, hence why I need to **hang** my GPU orthogonally to the PC case. For more specific specs, it is as below:
+From my overall experiments and paper readings over the years, there are 3 distincts methods used in SAM that makes it quite robust:
 
-- GPU: RTX 3060 12 GB (TDP 165 Watt) + RTX 4060 TI 16 GB (TDP 175 Watt)
-- CPU: Ryzen 7 5700x
-- RAM: 24 GB
-- Case: M-ATX
-- PSU: 550 Watt.
+1. It Uses Transformer, i.e. Vision Transformer (ViT).
+2. Supervised + Semi-Supervised + Self-supervised learnings.
+3. Self Scoring.
+
+### It Uses Transformer
+
+---
+
+Until recently, Transformer is still an unknown word/methodology to us, until 2017 where it was first introduced to address the issue encountered by Natural Language Processsing (NLP) practitioners, and finally to the Computer Vision field in 2019. In this post, I am not going to explain all of the basic theorems/step-by-step of Transformers, but I will share you the links on it in [here](https://towardsdatascience.com/all-you-need-to-know-about-attention-and-transformers-in-depth-understanding-part-1-552f0b41d021) and [here](https://www.v7labs.com/blog/vision-transformer-guide).
+
+Maybe many of us are wondering about "why transformer works better than traditional Convolutional Neural Network (CNN) or Fully Connected Layer"? To put it simply, transformer utilizes weighting to provider "attention" mechanism so that the network could focus more on certain object parts/things automatically while omiting unimportant areas/things somewhere else.
+
+Traditionally, Convolutional Neural Network utilizes kernels to do local mapping/feature extraction of certain areas in the image. However, this creates localized informations that are not shared across the channel, which could create a phenomenon where an object could be detected easily on some area, but could not be detected on another area. This is where fully connected (**FC**) and Attention/Transformer layers excel in.
+
+For this illustration, I will make an example of self-attention layer. In the self-attention layer, we will use our intermediate features in a self-weighting mechanism, where we multiply itself with the same features as a self weighting mechanism, followed by another dot product with itself to produced weighted output, familiarly known as **self attention layer**.
+
+{% include figure.liquid path="assets/img/20240827_attention.png" class="img-fluid rounded z-depth-3" zoomable=true %}
+
+<div class="caption">
+    Figure 1. Self-Attention Layer Illustration.  
+</div>
+
+Just a side note, to some extend, attention layer is quite similar to a stack of Fully Connected Layer with (possibly) different input and scaling, with the advantage in the self-weighting and cross weighting for attention mechanism across different layer, i.e. cross attention layer.
+
+### Supervised + Semi-Supervised + Self-Supervised Learnings
+
+---
+
+{% include figure.liquid path="assets/img/20240827_stages.png" class="img-fluid rounded z-depth-3" zoomable=true %}
+
+<div class="caption">
+    Figure 2. 3 Stages in SAM training: first, they will do manual + online supervised learning, followed by semi-supervised learning in the second stage that is basically similar to the online supervised learning in the first stage, and finalized with self supervised learning in Stage 3 by utilizing self mask scoring + mask stability filter.  
+</div>
+
+#### Supervised Stage
+
+---
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/082424_ss_pcbuild.jpg" class="img-fluid rounded z-depth-1" zoomable=false %}
+        {% include figure.liquid path="assets/img/20240827_1_manual_stage.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
     </div>
 </div>
+<div class="caption">
+    Courtesy to SAM Paper | Stage 1, Supervised + Online Supervised Learning Stage.
+</div>
 
-FYI, the budget PC build in here is using the cheapest RTX with the most GPU memory, which is RTX 3060 12G purchased in 2021 and RTX 4060 TI 16G purchased in this month, which have way less prices compared to their much pricier siblings. Also, as you might notice, my CPU RAM < GPU VRAM xD, which is kind of hilarious, but at the time of making this post, my new ordered RAM is still not coming yet, so I will make do with just the current setup. Jokes aside, I was also wondering whether my tiny Power Supply could handle those two GPU tower, but after checking the TDP specs, it seems to be okay-ish. Hence, we're ready to do the next steps!
+In the manual stage, it is basically similar to the normal training with annotations, where SAM was trained after sufficient number of annotations gathered. After that, they do online supervised learning where the ground truth will come from both human annotators + predicted masks from SAM.
 
-### 2. Download Our Testing LLAMA3.1 70B Q2_K/INT2 Model
+#### Semi-Supervised Stage
 
-This step is the easiest step, you can [open the link available in here](https://huggingface.co/bartowski/Meta-Llama-3.1-70B-Instruct-GGUF), go to **Files and versions** submenu, and scroll to Q2_K model (26.4 GB), and click the download icon as in the illustrations below.
+---
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/082424_hf_fav.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/082424_hf_dl.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid path="assets/img/20240827_2_semiauto_stage.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+    </div>
+</div>
+<div class="caption">
+    Courtesy to SAM Paper | Stage 2, Semi Supervised Stage.
+</div>
+
+In this stage, it is quite similar to the Online Supervised Learning, but with fewer annotation/image. This semi-supervised learning stage will basically add harder cases for the model to train on.
+
+#### Self-Supervised Stage
+
+---
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid path="assets/img/20240827_3_ssl_stage.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
     </div>
 </div>
 
-### 3. Download Ollama Package
+### Self Scoring | Ambiguity Aware Output
 
-To run this test, We will use Ollama as the LLM framework. They do have a docker just in case that you want a simpler environment to setup, albeit with more time. But for this test, we will just install it from Ollama's provided link (Linux or WSL user) as follows:
+---
 
-```bash
-curl -fsSL https://ollama.com/install.sh | sh
+In this step, they will output multiple masks (whole, part, and subpart) given ambiguous prompt / points and its confidence score, then filter out the lower scores by utilizing Non Maximum Suppression + Low confidence score ([set to 0.88 by default](https://github.com/facebookresearch/segment-anything/blob/main/segment_anything/automatic_mask_generator.py#L41)). By utilizing this, it could determine whether the mask objects/parts/subparts are more suitable, self-removing less relevant masks, and gives the most appropriate output (well, based on it's own confidence score) respectively.
+
+## Segment Anything/Everything in Action
+
+---
+
+Well, without further ado, let's do real inference on images, and below are the image outputs resulted from SAM, feel free to use the code and change it to your desired images.
+
+{% include video.liquid path="assets/video/20240827_sam_output.mp4" class="img-fluid rounded z-depth-3" controls=true autoplay=true %}
+
+```python
+from segment_anything import SamAutomaticMaskGenerator, sam_model_registry
+import numpy as np, torch, matplotlib.pyplot as plt, cv2
+
+
+def show_anns(anns):
+    if len(anns) == 0:
+        return
+    sorted_anns = sorted(anns, key=(lambda x: x['area']), reverse=True)
+    ax = plt.gca()
+    ax.set_autoscale_on(False)
+
+    img = np.ones((sorted_anns[0]['segmentation'].shape[0], sorted_anns[0]['segmentation'].shape[1], 4))
+    img[:,:,3] = 0
+    for ann in sorted_anns:
+        m = ann['segmentation']
+        color_mask = np.concatenate([np.random.random(3), [0.35]])
+        img[m] = color_mask
+    ax.imshow(img)
+
+print('init SAM')
+sam = sam_model_registry["vit_b"](checkpoint="sam_vit_b_01ec64.pth")
+sam = sam.eval().cuda()
+mask_generator = SamAutomaticMaskGenerator(sam, pred_iou_thresh=0.7, stability_score_thresh=0.8, stability_score_offset=0.9)
+
+image = cv2.imread('11.jpg')
+image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+with torch.inference_mode():
+    masks = mask_generator.generate(image)
+print('Inference finish', len(masks))
+plt.figure(figsize=(20,20))
+plt.imshow(image)
+show_anns(masks)
+plt.axis('off')
+plt.show()
 ```
 
-For Windows users, you can download [the Ollama Setup here](https://github.com/ollama/ollama/releases/download/v0.3.7-rc6/OllamaSetup.exe), and do normal installation procedure with the file.
+# Potential of SAM
 
-### 4. Prepare Ollama Model
+---
 
-In order to use our testing model (Q2_K/INT2), we are going to link the testing model with Ollama:
-a. Create a file that points to the path of our testing model. In this test, I name the file **llama3.1_70b** as in the screenshot below.
-{% include figure.liquid path="assets/img/082424_createmodel.png" class="img-fluid rounded z-depth-2" zoomable=false%}
-b. Create a model that transfer our testing model to Ollama accepted format file. In this test, we call the Ollama's newly created file as **example** as in the figure below.
-{% include figure.liquid path="assets/img/082424_ss_progress_create.png" class="img-fluid rounded z-depth-2" zoomable=false%}
-c. When the create model step is done, it should show the following instructions.
-{% include figure.liquid path="assets/img/082424_ss_finish.png" class="img-fluid rounded z-depth-2" zoomable=false%}
+As you can see, SAM could (almost) segment anything/every things inside. But again, almost, which means, there is a big note to write here. For beautification, where we want to affects each areas differently, SAM might be okay to use. However, in industrial/medical application, using SAM for segmenting tumor/detecting PCB objects **accurately and consistently** might pose a very big questions and might need specific domain optimizations/ensemble methodologies to solve the issue, as noted in many papers, e.g. [here](https://www.nature.com/articles/s41467-024-44824-z), [here](https://arxiv.org/pdf/2307.12674), [here](https://www.sciencedirect.com/science/article/am/pii/S1361841523001780), and [here](https://openaccess.thecvf.com/content/ICCV2023W/VCL/papers/Chen_SAM-Adapter_Adapting_Segment_Anything_in_Underperformed_Scenes_ICCVW_2023_paper.pdf). However, the potentials of SAM are still undeniably huge, especially its derivation or optimization ceilings that are still yet to be explored fully. Theoretically speaking, the capability to segment cross domains without retraining is hard to get, hence why SAM is highly regarded and used in many papers extensively to do specific domain tasks with competitive results compared to highly optimized and train-from-scratch models.
 
-> ##### Done
->
-> The last step is to Run the LLM
-> {: .block-tip }
-
-### 5. Run the 70B LLM!
-
-Now, the moment of truth, are we capable to run 70B LLM with ensemble PC built on a budget PC build which cost < 1000$ USD (total GPU price today ~600 USD + MOBO etc 300 USD)?
-
-Well, the answer is, absolutely YES! I am really happy that we can run the 70B model on the PC given my tight budget. It also means that **people doesn't really need to pursue the mighty pricy RX4090** and could just build it with 2 budget/reuse your old GPUS to run the current SOTA LLAMA3.1 70B on Huggingface Leaderboard.
-
-Okay, no more nonsense, here is the full record of LLAMA 70B running with 3.9 - 4.45 token/sec.
-
-{% include video.liquid path="assets/video/082424_live_llama31_70b.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=true %}
+Well then, how about you? do you have some use-cases that might be suitable SAM? But be aware that more optimizations might be needed in order to get industrial grade accuracy. Thanks for reading the post, have fun with SAM and happy coding!
 
 > Hope you enjoy the post shared in here and see you in the next post~
 

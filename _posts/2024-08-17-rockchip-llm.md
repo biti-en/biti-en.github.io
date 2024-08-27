@@ -7,8 +7,8 @@ tags: llm rockchip
 categories: llm
 thumbnail: assets/img/rkcomparison.png
 giscus_comments: false
-related_posts: true
-featured: true
+related_posts: false
+featured: false
 ---
 
 {% include video.liquid path="assets/video/livellm_qwen2_1.5b.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=true %}
