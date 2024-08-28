@@ -62,8 +62,13 @@ pagination:
 
 <div class="container featured-posts">
 {% assign is_even = featured_posts.size | modulo: 2 %}
-<div class="row row-cols-{% if featured_posts.size <= 2 or is_even == 0 %}2{% else %}3{% endif %}">
+{% assign post_ctr = -1 %}
+<div class="row row-cols-2">
 {% for post in featured_posts %}
+{% assign post_ctr = post_ctr | plus:1 %}
+{% if post_ctr == 2 %}
+  {% break %}
+{% endif %}
 <div class="col mb-4">
 <a href="{{ post.url | relative_url }}">
 <div class="card hoverable">
@@ -73,7 +78,7 @@ pagination:
 <div class="float-right">
 <i class="fa-solid fa-thumbtack fa-xs"></i>
 </div>
-<h3 class="card-title text-lowercase">{{ post.title }}</h3>
+<h5 class="card-title text-lowercase">{{ post.title }}</h5>
 <p class="card-text">{{ post.description }}</p>
 
                     {% if post.external_source == blank %}
