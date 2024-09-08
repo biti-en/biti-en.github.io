@@ -277,7 +277,7 @@ jekyll-archives:
     category: "/blog/category/:name/"
 
 display_tags: ["llm", "rockchip", "detection"] # these tags will be displayed on the front page of your blog
-display_categories: ["temp-basic", "external-services"] # these categories will be displayed on the front page of your blog
+display_categories: [] # these categories will be displayed on the front page of your blog
 
 # -----------------------------------------------------------------------------
 # Jekyll Scholar
