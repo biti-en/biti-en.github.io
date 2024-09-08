@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Application and Usage of Segment Anything
-date: 2024-09-08 23:00:00+0800
+date: 2024-09-07 23:00:00+0800
 description: Application and Usage of Segment Anything (SAM).
 tags: detection
 categories: detection
