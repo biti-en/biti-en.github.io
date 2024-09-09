@@ -6,7 +6,7 @@ description: Application and Usage of Segment Anything (SAM).
 tags: detection
 categories: detection
 thumbnail: assets/img/20240908_segment.jpg
-giscus_comments: false
+giscus_comments: true
 related_posts: true
 featured: true
 ---
