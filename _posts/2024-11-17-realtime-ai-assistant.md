@@ -26,7 +26,7 @@ b. You don't want to waste tons of watts for your AI Assistant like what was use
 c. You feel dissatisfied with your current paid-based LLM.\
 d. Or maybe, you just don't want to pass your hard-earned money to them anymore but you still want an end-to-end real time LLM assistant that you could talk to and reply to you in texts/voices.
 
-Then this post will relate to you a lot. In this post, I am going to introduce you an end-to-end, speech-to-speech voice assistant, that uses Large-Language Models and uses only 10 Watt-hour. For your information, I am going to call this developed AI Assistant as "Bob", and it's open source for non-commercial purpose. Without further ado, let's jump into it!
+Then this post will relate to you a lot. In this post, I am going to introduce you an end-to-end, speech-to-speech voice assistant, that uses Large-Language Models and uses only 10 Watt-hour. For your information, I am going to call this developed AI Assistant as "Bob", and it's open source for non-commercial purpose. For your info, the code [is available in this repo](https://github.com/briliantnugraha/rockchip_ai_assistant.git). Without further ado, let's jump into it!
 
 ---
 
@@ -37,7 +37,7 @@ Bob basically consists of three parts:
 a. OpenAI-Whipser, a Speech-to-text (STT) model that converts voices into text (output: text).\
 b. Qwen2.5-1.5B, A Large-Language Model (LLM) as our AI agent that we will be interacting with (output: text).\
 c. gTTs/piper, a Text-to-speech (TTS) model that converts text into speech/voices (output: voice).
-d. Gradio app, a simple UI that could help me to connect Bob to multiple environment/devices. 
+d. Gradio app, a simple UI that could help me to connect Bob to multiple environment/devices.
 
 ## How do I Build It into a 10 Watt-Hour Device
 
@@ -59,11 +59,13 @@ d. Any usable WIFI/router.
 Check [my repo in here](https://github.com/briliantnugraha/rockchip_ai_assistant.git), clone the repo, download all necessary models, and run the script below.
 
 a. With Internet Connection (very fast TTS)
+
 ```
 python3 demo.py --rkllm_model_path ./model/qwen25_1.5b.rkllm --target_platform rk3588
 ```
 
 b. No Internet Connection Required (very slow TTS)
+
 ```
 python3 demo.py --rkllm_model_path ./model/qwen25_1.5b.rkllm --target_platform rk3588 --disable_gtts
 ```
