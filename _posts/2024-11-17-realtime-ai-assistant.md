@@ -72,7 +72,9 @@ And voila! You've successfully started your AI-Assistant.
 
 ## Bob/AI Assistant in Action!
 
-Check
+{% include video.liquid path="assets/video/20241118_laptop.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=true %}
+
+{% include video.liquid path="assets/video/20241118_phone.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=true %}
 
 ## Current Limitation
 
