@@ -6,7 +6,7 @@ description: a journey of running LLM on Rockchip Device (Orange pi 5 - RK3588)
 tags: llm rockchip
 categories: llm
 thumbnail: assets/img/rkcomparison.png
-giscus_comments: false
+giscus_comments: true
 related_posts: false
 featured: true
 ---

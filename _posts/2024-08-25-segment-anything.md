@@ -6,7 +6,7 @@ description: A user-friendly explanation on Segment Anything (SAM).
 tags: detection
 categories: detection
 thumbnail: assets/img/20240827_sam_pencil.png
-giscus_comments: false
+giscus_comments: true
 related_posts: true
 featured: true
 ---
